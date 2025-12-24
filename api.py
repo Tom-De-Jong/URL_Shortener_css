@@ -21,5 +21,5 @@ def redirect(short_url: str):
     return RedirectResponse(backend.decoder(short_url))
 
 @app.get("/make/{decoded}")
-def redirect(decoded: str):
-    return  backend.encoder(decoded)
+def getmake(decoded: str):
+    return backend.encoder(decoded)
