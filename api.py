@@ -19,3 +19,7 @@ def make(data: encode):
 @app.get("/{short_url}")
 def redirect(short_url: str):
     return RedirectResponse(backend.decoder(short_url))
+
+@app.get("/make/{decoded}")
+def redirect(decoded: str):
+    return  backend.encoder(decoded)
