@@ -20,13 +20,14 @@ def make(url: str):
     return backend.encoder(url.lower())
 
 # API for getting the amount of times a link was clicked
-@app.get("/Clicks/{encoded}")
+@app.get("/clicks/{encoded}")
 def get_clicks(encoded: str):
     clicks = backend.db.get_clicks(encoded)
+    #Checking for null does not work, backend returns None which gets converted to null when returned to front
     if clicks is not None:
         return {"Clicks": clicks}
     else:
-        raise HTTPException(status_code=404, detail="URL not found")
+        return {"Clicks": "Not Found"}
 
 #Remove this on production branch, just for testing
 @app.get("/make/{decoded:path}")

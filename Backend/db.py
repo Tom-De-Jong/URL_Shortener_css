@@ -44,8 +44,8 @@ def click(encoded):
 
 def get_clicks(encoded):
     response = SUPABASE.table("URL_Shortener").select("Clicks").eq("Encoded", encoded).execute()
-    
-    if response.data:
+
+    if response.data != []:
         return response.data[0]["Clicks"]
     else:
         return None
