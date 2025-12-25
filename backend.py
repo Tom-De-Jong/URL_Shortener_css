@@ -34,7 +34,9 @@ def gen_hash(decoded):
     alph = "0123456789abcdefghijklmnopqrstuvwxyz"
 
     chars = []
-
+    if number == 0:
+        return alph[0]
+    
     #Hash Function
     while number > 0:
         number, remainder = divmod(number, 36)

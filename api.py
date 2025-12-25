@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import RedirectResponse
 #backend is a seperate script for processing
 import backend
@@ -23,4 +23,4 @@ def redirect(encoded: str):
     if url is not None:
         return RedirectResponse(url)
     else:
-        return {"Error": "URL not found"}
+        raise HTTPException(status_code=404, detail="URL not found")

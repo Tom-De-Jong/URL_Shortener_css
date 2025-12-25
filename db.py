@@ -10,6 +10,10 @@ URL = os.getenv("SUPABASE_ADDRESS")
 
 #Using .env for prod
 KEY = os.getenv("SUPABASE_KEY")
+
+if not URL or not KEY:
+    raise ValueError("SUPABASE_ADDRESS or SUPABASE_KEY are missing")
+
 #Using Constant for SUPABASE creds since it will never be changed by the script. Used multiple times
 SUPABASE: Client = create_client(URL, KEY)
 
