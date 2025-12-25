@@ -18,7 +18,7 @@ app.add_middleware(
 @app.post("/make_url")
 def make(url: str):
     return backend.encoder(url.lower())
-    
+
 #This redirects to the real website when you enter an encoded string after the url. "https://lh/encoded_string"
 #Keep /{short_url} at the end 
 @app.get("/{encoded}")
