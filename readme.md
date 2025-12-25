@@ -1,5 +1,7 @@
 # URL Shortener API Documentation
-## AI Gen
+## AI Generated code
+- readme.md
+- frontend
 
 ## Overview
 This API provides a simple service to shorten URLs using a Base36 encoding algorithm. It is built with FastAPI and uses Supabase as the backend database.
@@ -30,7 +32,7 @@ Redirects a short code to its original long URL.
 - **Method**: `GET`
 - **Path Parameter**: `encoded` (string) - The short code.
 - **Response**: `307 Temporary Redirect` to the original URL.
-- **Error**: Returns JSON `{"Error": "URL not found"}` if the code does not exist.
+- **Error**: Returns 404 error if the code does not exist.
 
 ### 3. Test Creation (Dev Only)
 A GET request alternative for creating short URLs.
@@ -38,4 +40,7 @@ A GET request alternative for creating short URLs.
 - **URL**: `/make/{decoded}`
 - **Method**: `GET`
 - **Path Parameter**: `decoded` (string) - The long URL.
- 
+
+## Road map
+
+- Adding pings to ensure websites are real
