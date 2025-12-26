@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, FileResponse
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 #backend is a seperate script for processing
 import backend
 
@@ -14,9 +15,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.mount("/Frontend", StaticFiles(directory="Frontend"), name="frontend")
+
 @app.get("/")
-def health():
-    return {"Status": "Healthy"}
+def frontend():
+    return FileResponse("Frontend/index.html")
 
 #API for generating an encoded string from an URL with POST requests.
 @app.post("/make_url")
