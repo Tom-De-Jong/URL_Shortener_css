@@ -17,15 +17,9 @@ def encoder(decoded):
             return encoded
 
 #Searches for hash in DB
-#Checks if it exists, if true returns it, if false returns None
+#Checks if it exists, if true returns it, if false returns None, this is handled by DB script
 def decoder(encoded):
-    #Reduces DB searches from 2 to 1 by making it a var instead of calling twice
-    exist = db.read_decode(encoded)
-
-    if exist:
-        return exist
-    else:
-        return None
+    return db.read_decode(encoded) 
 
 #Input -> Shortened Hashed Output
 def gen_hash(decoded):
