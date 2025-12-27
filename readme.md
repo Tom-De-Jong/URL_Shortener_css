@@ -77,4 +77,4 @@ Redirect to the original URL.
 ## ☁️ Deployment
 
 - **Frontend**: Deployed to Cloudflare Pages.
-- **Backend**: Containerized using Docker and deployed to a hosting provider.
+- **Backend**: Containerized using Docker and deployed locally.
