@@ -1,21 +1,23 @@
 export async function onRequest(context) {
   const url = new URL(context.request.url);
 
-  // 1. Static Asset Check
+  // 1. If static file, let Cloudflare handle it
   if (url.pathname === "/" || url.pathname.includes(".")) {
     return context.next();
   }
 
-  // 2. Prepare API URL
-  const origin = "https://api.jam06452.uk";
-  const fullPath = "/url_shortener" + url.pathname + url.search;
-  
-  // 3. Create the Proxy Request
-  // Include 'body' so POST methods work correctly if you ever send JSON data
-  const proxyRequest = new Request(new URL(fullPath, origin), {
+  // 2. Build API URL
+  const destination = new URL(
+    "/url_shortener" + url.pathname + url.search, 
+    "https://api.jam06452.uk"
+  );
+
+  // 3. Proxy everything exactly as received (Method, Body, Headers)
+  // 'redirect: manual' ensures the 302 redirect is passed to the browser
+  const proxyRequest = new Request(destination, {
     method: context.request.method,
     headers: context.request.headers,
-    body: context.request.body, // <--- Added this back for completeness
+    body: context.request.body,
     redirect: "manual"
   });
 
