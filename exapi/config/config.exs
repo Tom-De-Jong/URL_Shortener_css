@@ -7,10 +7,6 @@
 # General application configuration
 import Config
 
-config :exapi,
-  ecto_repos: [Exapi.Repo],
-  generators: [timestamp_type: :utc_datetime]
-
 # Configure the endpoint
 config :exapi, ExapiWeb.Endpoint,
   url: [host: "localhost"],

@@ -40,9 +40,6 @@ defmodule Exapi.MixProject do
   defp deps do
     [
       {:phoenix, "~> 1.8.3"},
-      {:phoenix_ecto, "~> 4.5"},
-      {:ecto_sql, "~> 3.13"},
-      {:postgrex, ">= 0.0.0"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 1.0"},
@@ -63,10 +60,7 @@ defmodule Exapi.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
-      setup: ["deps.get", "ecto.setup"],
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      setup: ["deps.get"],
       precommit: ["compile --warnings-as-errors", "deps.unlock --unused", "format", "test"]
     ]
   end
