@@ -44,5 +44,6 @@ defmodule ExapiWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
+  plug CORSPlug, origin: ["https://url.jam06452.uk"]
   plug ExapiWeb.Router
 end

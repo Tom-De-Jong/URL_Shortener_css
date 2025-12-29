@@ -39,6 +39,7 @@ defmodule Exapi.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
+      {:cors_plug, "~> 3.0"},
       {:phoenix, "~> 1.8.3"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},

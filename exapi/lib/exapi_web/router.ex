@@ -5,7 +5,7 @@ defmodule ExapiWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", ExapiWeb do
+  scope "/url_shortener", ExapiWeb do
     pipe_through :api
 
     post "/make_url", URLController, :make_url
