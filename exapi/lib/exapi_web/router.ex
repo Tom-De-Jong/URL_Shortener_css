@@ -11,6 +11,5 @@ defmodule ExapiWeb.Router do
     post "/make_url", URLController, :make_url
     get "/:encoded", URLController, :visit
     get "/clicks/:encoded", URLController, :clicks
-
   end
 end
