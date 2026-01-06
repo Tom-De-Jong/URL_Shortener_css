@@ -12,6 +12,7 @@ defmodule ExapiWeb.URLController do
       decoded -> redirect(conn, external: decoded)
     end
   end
+
   def clicks(conn, %{"encoded" => encoded}) do
     clicks = Exapi.Backend.get_clicks(encoded)
     json(conn, %{clicks: clicks})
