@@ -18,7 +18,8 @@ defmodule Exapi.Backend do
     end
   end
 
-  def decode(encoded), do: (Exapi.DB.add_click(encoded); Exapi.DB.read_decoded(encoded))
+  #Calls click function on SB, tries to read from cache, if nil, read straight from DB
+  def decode(encoded), do: (Exapi.DB.add_click(encoded); Exapi.Cache.read(encoded) || Exapi.DB.read_decoded(encoded))
 
   def get_clicks(encoded), do: Exapi.DB.get_clicks(encoded)
 end
