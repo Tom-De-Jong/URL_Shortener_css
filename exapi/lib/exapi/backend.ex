@@ -11,6 +11,7 @@ defmodule Exapi.Backend do
       nil ->
         encoded = url |> :erlang.crc32() |> Base36.encode() |> String.downcase()
         Exapi.DB.save(encoded, url)
+        Cachex.put(:cache, encoded, url)
         encoded
 
       encoded ->
@@ -18,8 +19,8 @@ defmodule Exapi.Backend do
     end
   end
 
-  #Calls click function on SB, tries to read from cache, if nil, read straight from DB
-  def decode(encoded), do: (Exapi.DB.add_click(encoded); Exapi.Cache.read(encoded) || Exapi.DB.read_decoded(encoded))
+  #Calls click function on SB, tries to read from cache, if nil, read straight from DB and stores in cache
+  def decode(encoded), do: (Exapi.DB.add_click(encoded); Cachex.fetch(:cache, encoded, fn -> Exapi.DB.read_decoded(encoded) end))
 
   def get_clicks(encoded), do: Exapi.DB.get_clicks(encoded)
 end
