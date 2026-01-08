@@ -8,6 +8,7 @@ defmodule Exapi.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      {Cachex, name: :cache},
       ExapiWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:exapi, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Exapi.PubSub},

@@ -50,7 +50,8 @@ defmodule Exapi.MixProject do
       {:base36, "~> 1.0.2"},
       {:supabase_potion, "~> 0.6"},
       {:supabase_postgrest, "~> 1.0"},
-      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
+      {:cachex, "~> 4.0"}
     ]
   end
 
