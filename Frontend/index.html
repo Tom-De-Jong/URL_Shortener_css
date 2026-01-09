@@ -3,17 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <meta name="theme-color" content="#000000">
+    <meta name="description" content="Brutalist URL shortener with cyber aesthetics">
+    <title>SHORTEN // URL</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>URL Shortener</h1>
-    <p><a href="https://url.jam06452.uk/19geh4u">Github Repo</a></p>
-    <form id="shorten-form">
-        <input type="str" id="url-input" placeholder="Enter URL to shorten" required>
-        <button type="submit">Shorten</button>
-    </form>
-    <div id="result"></div>
+    <div class="interactive-bg"></div>
+
+    <main class="container">
+        <header>
+            <h1 data-text="SHORTEN">SHORTEN</h1>
+            <a href="https://url.jam06452.uk/19geh4u" class="repo-link" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                GitHub Repo
+            </a>
+        </header>
+
+        <form id="shorten-form" class="input-group">
+            <div class="input-wrapper">
+                <input type="str" id="url-input" placeholder="https://..." required autocomplete="off">
+            </div>
+            <button type="submit">COMPRESS</button>
+        </form>
+
+        <div id="result" class="result-container"></div>
+    </main>
+
     <script src="config.js"></script>
     <script src="main.js"></script>
+
+    <script>
+        const root = document.documentElement;
+        document.addEventListener('mousemove', (e) => {
+            // We use requestAnimationFrame for performance so it doesn't lag
+            requestAnimationFrame(() => {
+                root.style.setProperty('--mouse-x', e.clientX + "px");
+                root.style.setProperty('--mouse-y', e.clientY + "px");
+            });
+        });
+    </script>
 </body>
 </html>
