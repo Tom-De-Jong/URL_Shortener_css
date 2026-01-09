@@ -29,7 +29,7 @@ defmodule Exapi.Backend do
 
   def clean(url) do
   #Checks if url starts with http:// or https://, if not, prepends https://
-  url = String.replace_prefix(url, "www.", "")
+  url = url |> String.replace_prefix( "www.", "") |> String.replace_suffix("/", "")
   url = if not String.starts_with?(url, ["http://", "https://"]), do: "https://" <> url, else: url
   url
   end
