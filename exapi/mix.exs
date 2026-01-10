@@ -47,7 +47,6 @@ defmodule Exapi.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:base36, "~> 1.0.2"},
       {:supabase_potion, "~> 0.6"},
       {:supabase_postgrest, "~> 1.0"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
