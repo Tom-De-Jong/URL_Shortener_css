@@ -26,7 +26,7 @@ defmodule Exapi.Backend do
   def decode(encoded, message) do
     Task.start(Exapi.DB, :add_click, [encoded])
     {_, url} = Cachex.fetch(:cache, encoded, fn -> Exapi.DB.read_decoded(encoded, message) end)
-    Logger.info("Decoded URL #{url}}")
+    Logger.info("Decoded URL #{url}")
     url
   end
 
