@@ -5,28 +5,38 @@ defmodule Exapi.DB do
     Application.get_env(:exapi, :supabase_table)
   end
 
+  def messages do
+    Application.get_env(:exapi, :message_table)
+  end
+
   def client do
     config = Application.get_env(:exapi, :supabase)
     {:ok, client} = Supabase.init_client(config[:url], config[:key])
     client
   end
 
-  def save(encoded, decoded) do
+  def save(encoded, decoded, message \\ false) do
+    #If messages is true it saves to the message table instead of main
+    table = if message, do: messages(), else: table()
+
     response =
-      Supabase.PostgREST.from(client(), table())
+      Supabase.PostgREST.from(client(), table)
       |> Supabase.PostgREST.insert(%{Encoded: encoded, Decoded: decoded})
       |> Map.put(:method, :post)
       |> Supabase.PostgREST.execute()
 
     case response do
       {:ok, response} -> response
-      {:error, reason} -> Logger.error(reason)
+      {_, reason} -> Logger.error(reason)
     end
   end
 
-  def read_encoded(url) do
+  def read_encoded(url, message \\ false) do
+
+    table = if message, do: messages(), else: table()
+
     {:ok, response} =
-      Supabase.PostgREST.from(client(), table())
+      Supabase.PostgREST.from(client(), table)
       |> Supabase.PostgREST.select(["Encoded"])
       |> Supabase.PostgREST.eq("Decoded", url)
       |> Map.put(:method, :get)
@@ -38,9 +48,12 @@ defmodule Exapi.DB do
     end
   end
 
-  def read_decoded(encoded) do
+  def read_decoded(encoded, message \\ false) do
+
+    table = if message, do: messages(), else: table()
+
     {:ok, response} =
-      Supabase.PostgREST.from(client(), table())
+      Supabase.PostgREST.from(client(), table)
       |> Supabase.PostgREST.select(["Decoded"])
       |> Supabase.PostgREST.eq("Encoded", encoded)
       |> Map.put(:method, :get)
