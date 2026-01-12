@@ -123,11 +123,14 @@ form.addEventListener('submit', async function(e) {
 
     try {
         const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 2000);
+        const timeoutId = setTimeout(() => controller.abort(), 1000);
         
         await fetch(urlInputValue, { 
             method: 'GET', 
-            mode: 'no-cors', 
+            mode: 'no-cors',
+            credentials: 'omit',
+            referrerPolicy: 'no-referrer',
+            cache: 'no-store',
             signal: controller.signal 
         });
         clearTimeout(timeoutId);
