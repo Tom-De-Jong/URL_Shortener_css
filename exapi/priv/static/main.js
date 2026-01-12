@@ -16,18 +16,15 @@ urlInput.addEventListener('input', () => {
 
 async function performShortening(urlInputValue, isMessage = false) {
     resultDiv.textContent = 'Compressing...';
-    
     try {
         const messageParam = isMessage ? '&message=true' : '';
         const response = await fetch(`${config.API_BASE_URL}/make_url?url=${encodeURIComponent(urlInputValue)}${messageParam}`, {
             method: 'POST'
         });
-        
         if (response.ok) {
             const data = await response.json();
             const shortCode = Object.values(data)[0];
             const shortUrl = `https://url.jam06452.uk/${shortCode}`;
-            
             // Clear previous results and safely build DOM elements
             resultDiv.textContent = '';
             const textNode = document.createTextNode('Shortened URL: ');
@@ -35,7 +32,6 @@ async function performShortening(urlInputValue, isMessage = false) {
             link.href = shortUrl;
             link.textContent = shortUrl;
             link.style.cursor = 'pointer';
-            
             link.addEventListener('click', (e) => {
                 e.preventDefault();
                 navigator.clipboard.writeText(shortUrl).then(() => {
@@ -46,15 +42,43 @@ async function performShortening(urlInputValue, isMessage = false) {
                     }, 1500);
                 });
             });
-            
             resultDiv.appendChild(textNode);
             resultDiv.appendChild(link);
         } else {
-            resultDiv.innerText = 'Error shortening URL';
+            // Try to extract error details from response
+            let errorMsg = 'Error shortening URL.';
+            try {
+                const errData = await response.json();
+                if (errData && errData.error) {
+                    errorMsg += ` Server says: ${errData.error}`;
+                } else if (errData && errData.message) {
+                    errorMsg += ` Server says: ${errData.message}`;
+                }
+            } catch (jsonErr) {
+                // Not JSON, try text
+                try {
+                    const errText = await response.text();
+                    if (errText) {
+                        errorMsg += ` Server response: ${errText}`;
+                    }
+                } catch (textErr) {
+                    // Ignore
+                }
+            }
+            resultDiv.innerText = errorMsg;
+            console.error('Shorten error:', response.status, errorMsg);
         }
     } catch (error) {
-        console.error('Error:', error);
-        resultDiv.innerText = 'Error connecting to server. Make sure the backend is running and CORS is enabled.';
+        let errorMsg = 'Error connecting to server.';
+        if (error.name === 'TypeError') {
+            errorMsg += ' (Network error or CORS issue)';
+        } else if (error.name === 'AbortError') {
+            errorMsg += ' (Request timed out)';
+        } else {
+            errorMsg += ` (${error.message})`;
+        }
+        resultDiv.innerText = errorMsg;
+        console.error('Error during shortening:', error);
     }
 }
 
