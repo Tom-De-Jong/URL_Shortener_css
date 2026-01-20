@@ -40,8 +40,7 @@ mix phx.server
 - Elixir & Phoenix for backend APIs
 
 ## Deployment
-- Cloudflare Pages for frontend
-- Free Oracle VM for backend
+- Free Oracle VM for backend & frontend
 - Both use GitHub actions for auto deployment on main branch
 
 ## AI Generated Files
