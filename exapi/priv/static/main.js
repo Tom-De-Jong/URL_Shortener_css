@@ -9,10 +9,6 @@ urlInput.addEventListener('input', () => {
     }
 });
 
-// Ensure all inputs are converted to lowercase
-urlInput.addEventListener('input', () => {
-    urlInput.value = urlInput.value.toLowerCase();
-});
 
 async function performShortening(urlInputValue, isMessage = false) {
     resultDiv.textContent = 'Compressing...';
