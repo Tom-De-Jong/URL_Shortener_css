@@ -6,3 +6,4 @@ node_modules
 .vscode
 .credo.exs
 test.*
+history_patches.txt
