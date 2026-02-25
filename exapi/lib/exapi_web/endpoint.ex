@@ -24,7 +24,7 @@ defmodule ExapiWeb.Endpoint do
     at: "/",
     from: :exapi,
     gzip: not code_reloading?,
-    only: ~w(index.html style.css main.js config.js favicon.ico robots.txt),
+    only: ~w(index.html style.css main.js config.js message.css message.js favicon.ico robots.txt),
     raise_on_missing_only: code_reloading?
 
   # Code reloading can be explicitly enabled under the
